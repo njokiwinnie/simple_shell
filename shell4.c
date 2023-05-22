@@ -31,10 +31,14 @@ int main(void)
 		read = get_input(&input, &buffsize);
 		
 		printf("Before IF 1 %s\n", input);
-		/* CHECK IF THE USER HAS ETYPED EXIT */
-		if (strcmp(input, "exit") == 0)
+		/* CHECK IF THE USER HAS TYPED EXIT */
+
+		if (exit_shell(input))
 		{
-			break;
+			printf("Bye! Bye! You're Exiting...\n");
+			sleep(2);
+			free(input);
+			exit(0);
 		}
 
 		if (read == -1)

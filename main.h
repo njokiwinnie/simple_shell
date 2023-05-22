@@ -10,5 +10,6 @@
 
 ssize_t get_input(char **input, size_t *n);
 void execute_command(char *args[], char *env[]);
+int exit_shell(char *input);
 
 #endif /* MAIN_H */
