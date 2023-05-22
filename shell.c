@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 /**
@@ -11,9 +12,15 @@ int main(void)
 {
 	/* length of possible input */
 	char prompt[150];
+	/* int i = 0; */
+	/* char argc; */
 
-	printf("$ ");
+	printf("($) ");
 	scanf("%s", prompt);
+	printf("You have entered:\n%s\n", prompt);
+
+	/* Finally, this makes a system call to execute the user input */
+	system(prompt);
 
 	return (0);
 }
