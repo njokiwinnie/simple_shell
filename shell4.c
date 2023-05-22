@@ -23,12 +23,15 @@ int main(void)
 
 	while (1)
 	{
+		/* GET USER INPUT AND STORE  */
 		input = NULL;
+		/* CHECK VALUE STORED IN INPUT BEFORE LOOP STARTS */
 		printf("Current values of Input: %s\n", input);
 		printf("($) ");
 		read = get_input(&input, &buffsize);
 		
 		printf("Before IF 1 %s\n", input);
+		/* CHECK IF THE USER HAS ETYPED EXIT */
 		if (strcmp(input, "exit") == 0)
 		{
 			break;
@@ -39,12 +42,14 @@ int main(void)
 			perror("get_input");
 			exit(EXIT_SUCCESS);
 		}
+		/* CHECK VALUE STORED IN INPUT BEFORE IF LOOP STARTS */
 		printf("Before IF 3 %s\n", input);
 		if (input[read - 1] == '\n')
 		{
 			input[read - 1] = '\0';
 		}
 		token = strtok(input, " ");
+		/* CHECK VALUE STORED IN INPUT BEFORE LOOP STARTS */
 		printf("Before last WHILE %s\n", input);
 		while (token != NULL && i < 4)
 			{
@@ -52,13 +57,15 @@ int main(void)
 				token = strtok(NULL, " ");
 				i++;
 			}
+		/* CHECK VALUE STORED IN INPUT BEFORE LOOP STARTS */
 		printf("After WHILE loop: %s\n", input);
 		args[i] = NULL;
-
+		/* CHECK VALUE STORED IN INPUT BEFORE LOOP STARTS */
 		printf("Recieved: %s as input\n", input);
 		/* args[0] = input; */
 		execute_command(args, env);
 	}
+	/* AT THIS POINT WE CLEAR THE MEMORY ALLOCATED TO INPUT BY read EARLIER */
 	free(input);
 	return (0);
 }

@@ -37,7 +37,8 @@ int main(void)
 			input[read - 1] = '\0';
 		printf("Recieved: %s\n", input);
 		args[0] = input;
-		pid_t child_pid = fork();
+		pid_t child_pid;
+		child_pid = fork();
 
 		if (child_pid == -1)
 		{
