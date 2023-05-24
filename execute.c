@@ -24,7 +24,7 @@ void execute_command(char *args[], char *env[])
 	{
 		if (execve(args[0], args, env) == -1)
 		{
-			perror("execve");
+			perror("./shell");
 			exit(EXIT_FAILURE);
 		}
 	}
