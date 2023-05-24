@@ -13,7 +13,7 @@
 int main(void)
 {
 	char *input = NULL;
-	size_t buffsize = 0;
+	size_t buff_size = 0;
 	ssize_t read;
 	char *args[] = {NULL, NULL};
 	char *token;
@@ -24,8 +24,8 @@ int main(void)
 	{
 		input = NULL;
 		i = 0;
-		printf("($)");
-		read = get_input(&input, &buffsize);
+		printf("$");
+		read = get_input(&input, &buff_size);
 		if (exit_shell(input))
 		{
 			exit(0);
