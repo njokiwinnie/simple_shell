@@ -24,7 +24,7 @@ int main(void)
 	{
 		input = NULL;
 		i = 0;
-		printf("$");
+		printf("$ ");
 		read = get_input(&input, &buff_size);
 		if (exit_shell(input))
 		{
