@@ -1,5 +1,5 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef SHELL_H
+#define SHELL_H
 
 #include <stdio.h>
 #include <unistd.h>
@@ -16,4 +16,4 @@ void handle_input(char *command, char *env[]);
 int is_executable_found(const char *command);
 /* void search_command(char *command, char *env[]) */
 
-#endif /* MAIN_H */
+#endif /* SHELL_H */

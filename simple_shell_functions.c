@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * is_executable_found - Check if input is executable

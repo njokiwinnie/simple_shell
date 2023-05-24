@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * exit_shell - check for user input of exit

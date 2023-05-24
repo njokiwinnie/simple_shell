@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * get_input - Obtain input from the user
