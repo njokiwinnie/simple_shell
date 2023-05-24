@@ -1,55 +1,48 @@
-#include "shell.h"
-
+#include "main.h"
 /**
- * main - simpler shell
- *	argv: user input
- *	args: command arguement
- *	env: environment
- *
- * Return: Always 1.
- *
+ * main - main loop of shell
+ * Return: 0 on success
  */
-
 int main(void)
 {
-	char *input = NULL;
-	size_t buff_size = 0;
-	ssize_t read;
-	char *args[] = {NULL, NULL};
-	char *token;
-	int i = 0;
-	char *env[] = {NULL};
+	char *line, *path, *fullpath;
+	char **tokens;
+	int flag, builtin_status, child_status;
+	struct stat buf;
 
-	while (1)
+	while (REPEAT)
 	{
-		input = NULL;
-		i = 0;
-		printf("$ ");
-		read = get_input(&input, &buff_size);
-		if (exit_shell(input))
+		prompt(STDIN_FILENO, buf);
+		line = _getline(stdin);
+		if (_strcmp(line, "\n", 1) == 0)
 		{
-			exit(0);
+			free(line);
+			continue;
 		}
-
-		if (read == -1)
+		tokens = tokenizer(line);
+		if (tokens[0] == NULL)
+			continue;
+		builtin_status = builtin_execute(tokens);
+		if (builtin_status == 0 || builtin_status == -1)
 		{
-			perror("get_input");
-			exit(EXIT_SUCCESS);
+			free(tokens);
+			free(line);
 		}
-		if (input[read - 1] == '\n')
-		{
-			input[read - 1] = '\0';
-		}
-		token = strtok(input, " ");
-		while (token != NULL && i < 8)
-		{
-			args[i] = token;
-			token = strtok(NULL, " ");
-			i++;
-		}
-		args[i] = NULL;
-		execute_command(args, env);
+		if (builtin_status == 0)
+			continue;
+		if (builtin_status == -1)
+			_exit(EXIT_SUCCESS);
+		flag = 0; /* 0 if full_path is not malloc'd */
+		path = _getenv("PATH");
+		fullpath = _which(tokens[0], fullpath, path);
+		if (fullpath == NULL)
+			fullpath = tokens[0];
+		else
+			flag = 1; /* if fullpath was malloc'd, flag to free */
+		child_status = child(fullpath, tokens);
+		if (child_status == -1)
+			errors(2);
+		free_all(tokens, path, line, fullpath, flag);
 	}
-	free(input);
 	return (0);
 }

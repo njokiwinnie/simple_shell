@@ -1,31 +1,28 @@
-#include "shell.h"
+#include "main.h"
 
 /**
- * get_input - Obtain input from the user
- * @input: store user input
- * @n: buffer
- *
- * Return: Always 1.
- */
-
-ssize_t get_input(char **input, size_t *n)
+ * prompt - checks mode and prints prompt if in interactive mode
+ * @fd: file stream
+ * @buf: buffer
+**/
+void prompt(int fd, struct stat buf)
 {
-	ssize_t read = getline(input, n, stdin);
+	fstat(fd, &buf);
 
-	if (read == -1)
-	{
-		if (feof(stdin))
-		{
-			printf("\n");
-			/* newline after Ctrl+D */
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			perror("getline");
-			exit(EXIT_FAILURE);
-		}
-	}
+	if (S_ISCHR(buf.st_mode))
+		_puts(PROMPT);
+}
 
-	return (read);
+/**
+ * _puts - prints a string without a \n
+ * @str: string to print
+ * Return: void
+ */
+void _puts(char *str)
+{
+	unsigned int length;
+
+	length = _strlen(str);
+
+	write(STDOUT_FILENO, str, length);
 }
