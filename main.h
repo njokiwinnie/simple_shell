@@ -11,5 +11,7 @@
 ssize_t get_input(char **input, size_t *n);
 void execute_command(char *args[], char *env[]);
 int exit_shell(char *input);
+int is_command_present(const char *command);
+/* void search_command(char *command, char *env[]) */
 
 #endif /* MAIN_H */

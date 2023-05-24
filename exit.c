@@ -11,6 +11,7 @@
 int exit_shell(char *input)
 {
 	int isExit = 1;
+	int i;
 	/* Remove the newline character from the input string */
 	size_t input_length = strlen(input);
 
@@ -21,7 +22,7 @@ int exit_shell(char *input)
 
 	/* handler to indicate if the input is equal to "exit" */
 
-	for (int i = 0; input[i] != '\0' && i < 4; i++)
+	for (i = 0; input[i] != '\0' && i < 4; i++)
 	{
 		if (input[i] != "exit"[i])
 		{
