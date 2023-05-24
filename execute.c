@@ -13,7 +13,6 @@
 void execute_command(char *args[], char *env[])
 {
 	int status;
-	/* CHECK FOR COMMAND IN PATH */
 	pid_t child_pid = fork();
 
 	if (child_pid == -1)
@@ -23,12 +22,19 @@ void execute_command(char *args[], char *env[])
 	}
 	else if (child_pid == 0)
 	{
-		execve(args[0], args, env);
-
-		exit(EXIT_FAILURE);
+		if (execve(args[0], args, env) == -1)
+		{
+			perror("execve");
+			exit(EXIT_FAILURE);
+		}
 	}
 	else
 	{
-		waitpid(child_pid, &status, 0);
+		/* Parent process */
+		if (waitpid(child_pid, &status, 0) == -1)
+		{
+			perror("waitpid");
+			exit(EXIT_FAILURE);
+		}
 	}
 }

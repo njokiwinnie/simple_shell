@@ -16,7 +16,7 @@ ssize_t get_input(char **input, size_t *n)
 	{
 		if (feof(stdin))
 		{
-			printf("\n"); 
+			printf("\n");
 			/* newline after Ctrl+D */
 			exit(EXIT_SUCCESS);
 		}
@@ -27,5 +27,5 @@ ssize_t get_input(char **input, size_t *n)
 		}
 	}
 
-	return read;
+	return (read);
 }
