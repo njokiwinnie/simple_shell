@@ -71,7 +71,7 @@ char *_itoa(int num);
 
 /* Input Helpers */
 void handle_line(char **line, ssize_t read);
-void variable_replacement(char **args, int *exe_ret);
+void variable_replacer(char **args, int *exe_ret);
 char *get_args(char *line, int *exe_ret);
 int fetch_args(char **args, char **front, int *exe_ret);
 int run_args(char **args, char **front, int *exe_ret);

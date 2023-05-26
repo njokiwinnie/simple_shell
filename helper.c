@@ -134,11 +134,11 @@ void variable_replacer(char **line, int *exe_ret)
 				return;
 			new_line[0] = '\0';
 			_strncat(new_line, old_line, j);
-			if (replacemer)
+			if (replacer)
 			{
 				_strcat(new_line, replacer);
 				free(replacer);
-				replacement = NULL;
+				replacer = NULL;
 			}
 			_strcat(new_line, &old_line[k]);
 			free(old_line);

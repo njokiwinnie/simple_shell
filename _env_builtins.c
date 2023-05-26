@@ -1,11 +1,8 @@
 #include "shell.h"
 
-int simple_shell_env(char **args;
-char __attribute__((__unused__)) **front);
-int simple_shell_setenv(char **args;
-char __attribute__((__unused__)) **front);
-int simple_shell_unsetenv(char **args;
-char __attribute__((__unused__)) **front);
+int simple_shell_env(char **args, char __attribute__((__unused__)) **front);
+int simple_shell_setenv(char **args, char __attribute__((__unused__)) **front);
+int simple_shell_unsetenv(char **args, char __attribute__((__unused__)) **front);
 
 /**
  * simple_shell_env - Prints the current environment.
