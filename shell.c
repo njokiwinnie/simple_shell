@@ -48,10 +48,12 @@ int main(void)
 	char command[MAX_COMMAND_LENGTH];
 	char newline = '\n';
 	ssize_t bytes_read;
+	int interactive_mode = isatty(STDIN_FILENO);
 
 	while (REPEAT)
 	{
-		write(1, PROMPT, sizeof(PROMPT) - 1);
+		if (interactive_mode)
+			write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
 
 		bytes_read = read(0, command, sizeof(command) - 1);
 		
