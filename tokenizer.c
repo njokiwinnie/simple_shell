@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
- * tokenizer - tokenizes string
+ * tokenizer - string token
  * @str: user input
- * Return: pointer to array of tokens
+ * Return: array pointer
  */
 char **tokenizer(char *str)
 {
