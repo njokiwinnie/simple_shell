@@ -45,7 +45,7 @@ typedef struct built_s
 } built_s;
 
 void prompt(int fd, struct stat buf);
-char *_getline(FILE *fp);
+char *_getline(FILE *pr);
 char **tokenizer(char *str);
 char *_which(char *command, char *fullpath, char *path);
 int child(char *fullpath, char **tokens);

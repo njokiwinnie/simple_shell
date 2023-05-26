@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
- * _getline - puts input from user into buffer line
- * @fp: buffer for user input
+ * _getline - inputs into a buffer
+ * @pr: input buffer
  * Return: buffer with user input
  */
-char *_getline(FILE *fp)
+char *_getline(FILE *pr)
 {
 	char *line;
 	ssize_t read;
@@ -13,7 +13,7 @@ char *_getline(FILE *fp)
 
 	line = NULL;
 	len = 0;
-	read = getline(&line, &len, fp);
+	read = getline(&line, &len, pr);
 	if (read == -1)
 	{
 		free(line);
