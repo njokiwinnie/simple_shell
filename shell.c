@@ -1,79 +1,48 @@
 #include "main.h"
-
 /**
- * execute_command - Execute the given command.
- * @command: The command to be executed.
- */
-void execute_command(char *command)
-{
-	pid_t pid = fork();
-
-	if (pid == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		/* Child process */
-		/* char *args[] = {NULL, NULL}; */
-		char *args[2];
-		char *envp[] = {NULL}; /* Environment variable list */
-		args[0] = command;
-		args[1] = NULL;
-
-		if(execve(command, args, envp) == -1)
-		{
-			/* If execve returns, means command execution failed */
-			perror("execvp");
-			exit(EXIT_FAILURE);
-		}
-	}
-	else
-	{
-		/* Parent process */
-		int status;
-
-		waitpid(pid, &status, 0);
-	}
-}
-
-/**
- * main - Entry point of the shell.
- *
- * Return: Always 0.
+ * main - main loop of shell
+ * Return: 0 on success
  */
 int main(void)
 {
-	char command[MAX_COMMAND_LENGTH];
-	char newline = '\n';
-	ssize_t bytes_read;
-	int interactive_mode = isatty(STDIN_FILENO);
+	char *line, *path, *fullpath;
+	char **tokens;
+	int flag, builtin_status, child_status;
+	struct stat buf;
 
 	while (REPEAT)
 	{
-		if (interactive_mode)
-			write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
-
-		bytes_read = read(0, command, sizeof(command) - 1);
-		
-		if (bytes_read == -1)
+		prompt(STDIN_FILENO, buf);
+		line = _getline(stdin);
+		if (_strcmp(line, "\n", 1) == 0)
 		{
-			perror("read");
-			exit(EXIT_FAILURE);
+			free(line);
+			continue;
 		}
-		else if (bytes_read == 0)
+		tokens = tokenizer(line);
+		if (tokens[0] == NULL)
+			continue;
+		builtin_status = builtin_execute(tokens);
+		if (builtin_status == 0 || builtin_status == -1)
 		{
-			/* Handle end of file (Ctrl+D) */
-			write(1, &newline, 1);
-			break;
+			free(tokens);
+			free(line);
 		}
-
-		/* Remove the newline character at the end of the command */
-		command[bytes_read -1] = '\0';
-
-		execute_command(command);
+		if (builtin_status == 0)
+			continue;
+		if (builtin_status == -1)
+			_exit(EXIT_SUCCESS);
+		flag = 0; /* 0 if full_path is not malloc'd */
+		path = _getenv("PATH");
+		fullpath = _which(tokens[0], fullpath, path);
+		if (fullpath == NULL)
+			fullpath = tokens[0];
+		else
+			flag = 1; /* if fullpath was malloc'd, flag to free */
+		child_status = child(fullpath, tokens);
+		if (child_status == -1)
+			errors(2);
+		free_all(tokens, path, line, fullpath, flag);
 	}
-
 	return (0);
 }
