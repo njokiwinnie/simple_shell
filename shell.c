@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * main - main loop of shell
+ * main - main shell loop
  * Return: 0 on success
  */
 int main(void)
@@ -32,13 +32,14 @@ int main(void)
 			continue;
 		if (builtin_status == -1)
 			_exit(EXIT_SUCCESS);
-		flag = 0; /* 0 if full_path is not malloc'd */
+		flag = 0;
 		path = _getenv("PATH");
 		fullpath = _which(tokens[0], fullpath, path);
 		if (fullpath == NULL)
 			fullpath = tokens[0];
 		else
-			flag = 1; /* if fullpath was malloc'd, flag to free */
+			flag = 1;
+
 		child_status = child(fullpath, tokens);
 		if (child_status == -1)
 			errors(2);
