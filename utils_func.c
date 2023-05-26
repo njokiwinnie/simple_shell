@@ -1,8 +1,8 @@
 #include "main.h"
 
 /**
- * _strcmp - compares two strings to find out if they are exactly the same
- * @name: name supplied by user to search for
+ * _strcmp - compares two strings
+ * @name: search
  * @variable: variable to compare against
  * @length: length of name
  * Return: 1 if strings are equal, -1 if they are not
@@ -27,11 +27,10 @@ int _strcmp(char *name, char *variable, unsigned int length)
 }
 
 /**
- * _strncmp - compares two strings
- * up to given length are the same
- * @name: name supplied by user to search for
- * @variable: variable to compare against
- * @length: length to compare up to
+ * _strncmp - compares two strings upto certain length
+ * @name: name search
+ * @variable: first variable
+ * @length: strg len comparison
  * Return: 1 if strings are equal, -1 if they are not
  */
 int _strncmp(char *name, char *variable, unsigned int length)
@@ -49,7 +48,7 @@ int _strncmp(char *name, char *variable, unsigned int length)
 }
 
 /**
- * *_strcpy - copies string pointed to by src to the buffer pointed to dest
+ * *_strcpy - copies strng from buffer src to dest 
  * @dest: string destination
  * @src: string source
  * Return: the pointer to dest
