@@ -48,7 +48,7 @@ int _strncmp(char *name, char *variable, unsigned int length)
 }
 
 /**
- * *_strcpy - copies strng from buffer src to dest 
+ * *_strcpy - copies strng from buffer src to dest
  * @dest: string destination
  * @src: string source
  * Return: the pointer to dest

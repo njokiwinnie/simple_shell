@@ -3,7 +3,7 @@
 /**
  * free_all - frees malloc
  * @tokens: token array pointer
- * @path: path variable 
+ * @path: path variable
  * @line: input buffer pointer
  * @fullpath: path
  * @flag: flag mark
