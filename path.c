@@ -1,10 +1,10 @@
 #include "main.h"
 
 /**
- * _which - searches directories in PATH variable for command
- * @command: to search for
- * @fullpath: full path of command to execute
- * @path: full PATH variable
+ * _which - path variable search
+ * @command: search
+ * @fullpath: executable command PATH
+ * @path: PATH variable
  * Return: pointer to full_path
  */
 char *_which(char *command, char *fullpath, char *path)
@@ -21,7 +21,7 @@ char *_which(char *command, char *fullpath, char *path)
 		return (NULL);
 	}
 	_strcpy(path_copy, path);
-	/* copy PATH directory + command name and check if it exists */
+
 	token = strtok(path_copy, ":");
 	if (token == NULL)
 		token = strtok(NULL, ":");
