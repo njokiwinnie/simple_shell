@@ -1,0 +1,64 @@
+#include "shell.h"
+
+/**
+ * _strlen - returns length of a string
+ * @s: string to be checked
+ * Return: string length
+ */
+int _strlen(char *s)
+{
+	int i = 0;
+
+	while (s[i] != '\0')
+		i++;
+
+	return (i);
+}
+
+/**
+ * _strcmp - compares two strings checking if they're same
+ * @input: user's input
+ * @variable: variable to check against
+ * @length: length of user input
+ * Return: 1 if strings are equal, -1 if not
+ */
+int _strcmp(char *input, char *variable, unsigned int length)
+{
+	unsigned int var_length;
+	unsigned int i;
+
+	var_length = _strlen(variable);
+	if (var_length != length)
+		return (-1);
+
+	i = 0;
+	while (input[i] != '\0' && variable[i] != '\0')
+	{
+		if (input[i] != variable[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+/**
+ * _strncmp - compares two strings
+ * to precise given length if they are same
+ * @input: user's input
+ * @variable: variable to check against
+ * @length: max length to check up to ( exit - 4 )
+ * Return: 1 if equal, -1 if not
+ */
+int _strncmp(char *input, char *variable, unsigned int length)
+{
+	unsigned int i;
+
+	i = 0;
+	while (i < length)
+	{
+		if (input[i] != variable[i])
+			return (-1);
+		i++;
+	}
+	return (1);
+}

@@ -1,0 +1,34 @@
+#ifndef SHELL_H
+#define SHELL_H
+
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <string.h>
+
+#define REPEAT 1
+#define PROMPT "$ "
+/* ssize_t BUFFER_SIZE = 1024; */
+#define BUFFER_SIZE 1024
+
+/* ssize_t get_input(char **input, size_t *n); */
+/* void execute_command(char *args[], char *env[]); */
+/* int exit_shell(char *input); */
+/* int is_executable_found(const char *command); */
+/* void handle_input(char *command, char *env[]); */
+
+/* PROTOTYPES */
+void execute_command(char *command);
+void handle_signal(int signal);
+
+/* SHELL FUNCTIONS - PROTOTYPES */
+
+void _puts(char *str);
+int _strlen(char *s);
+int _strcmp(char *input, char *variable, unsigned int length);
+int _strncmp(char *input, char *variable, unsigned int length);
+
+
+#endif /* SHELL_H */

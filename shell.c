@@ -1,55 +1,77 @@
-#include "shell.h"
+#include "main.h"
 
 /**
- * main - simpler shell
- *	argv: user input
- *	args: command arguement
- *	env: environment
- *
- * Return: Always 1.
- *
+ * execute_command - Execute the given command.
+ * @command: The command to be executed.
  */
+void execute_command(char *command)
+{
+	pid_t pid = fork();
 
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		/* Child process */
+		/* char *args[] = {NULL, NULL}; */
+		char *args[2];
+		char *envp[] = {NULL}; /* Environment variable list */
+		args[0] = command;
+		args[1] = NULL;
+
+		if(execve(command, args, envp) == -1)
+		{
+			/* If execve returns, means command execution failed */
+			perror("execvp");
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		/* Parent process */
+		int status;
+
+		waitpid(pid, &status, 0);
+	}
+}
+
+/**
+ * main - Entry point of the shell.
+ *
+ * Return: Always 0.
+ */
 int main(void)
 {
-	char *input = NULL;
-	size_t buff_size = 0;
-	ssize_t read;
-	char *args[] = {NULL, NULL};
-	char *token;
-	int i = 0;
-	char *env[] = {NULL};
+	char command[MAX_COMMAND_LENGTH];
+	char newline = '\n';
+	ssize_t bytes_read;
 
-	while (1)
+	while (REPEAT)
 	{
-		input = NULL;
-		i = 0;
-		printf("$ ");
-		read = get_input(&input, &buff_size);
-		if (exit_shell(input))
+		write(1, PROMPT, sizeof(PROMPT) - 1);
+
+		bytes_read = read(0, command, sizeof(command) - 1);
+		
+		if (bytes_read == -1)
 		{
-			exit(0);
+			perror("read");
+			exit(EXIT_FAILURE);
+		}
+		else if (bytes_read == 0)
+		{
+			/* Handle end of file (Ctrl+D) */
+			write(1, &newline, 1);
+			break;
 		}
 
-		if (read == -1)
-		{
-			perror("get_input");
-			exit(EXIT_SUCCESS);
-		}
-		if (input[read - 1] == '\n')
-		{
-			input[read - 1] = '\0';
-		}
-		token = strtok(input, " ");
-		while (token != NULL && i < 8)
-		{
-			args[i] = token;
-			token = strtok(NULL, " ");
-			i++;
-		}
-		args[i] = NULL;
-		execute_command(args, env);
+		/* Remove the newline character at the end of the command */
+		command[bytes_read -1] = '\0';
+
+		execute_command(command);
 	}
-	free(input);
+
 	return (0);
 }
