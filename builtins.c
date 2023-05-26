@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
-**shell_exit - exits the shell
+**shell_exit - exits the shell when prompted
 **Return: void
 **/
 
