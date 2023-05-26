@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
- * child - function for child process
- * @fullpath: full path of executable
- * @tokens: tokenized user input
+ * child - child process
+ * @fullpath: executable path
+ * @tokens: user input token
  * Return: 0 on success
  */
 int child(char *fullpath, char **tokens)
